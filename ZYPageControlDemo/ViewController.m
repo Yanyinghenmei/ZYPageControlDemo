@@ -24,6 +24,7 @@
     UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 200, self.view.frame.size.width, 200)];
     [self.view addSubview:scrollView];
     scrollView.delegate = self;
+    scrollView.pagingEnabled = YES;
     scrollView.contentSize = CGSizeMake(self.view.frame.size.width*4, 200);
     
     NSArray *colors = @[[UIColor redColor], [UIColor blueColor], [UIColor yellowColor], [UIColor cyanColor]];

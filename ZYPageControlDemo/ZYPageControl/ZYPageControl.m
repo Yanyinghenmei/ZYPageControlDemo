@@ -35,8 +35,8 @@
 }
 
 - (void)initProperty {
-    _pageIndicatorTintColor = [UIColor purpleColor];
-    _currentPageIndicatorTintColor = [UIColor orangeColor];
+    _pageIndicatorTintColor = [UIColor whiteColor];
+    _currentPageIndicatorTintColor = [UIColor blackColor];
     _currentPage = 0;
     indicators = @[].mutableCopy;
 }
@@ -60,7 +60,7 @@
         [indicators addObject:indicator];
         
         // .使用center 需要这样来写.  A.center = B.center 指的是A和B在父view的中心坐标相同
-        // .如果将A或B称为对方的父view, 那么在屏幕上, A和B的中心不重合
+        // .如果将A或B成为对方的父view, 那么在屏幕上, A和B的中心不重合
         //indicator.center = CGPointMake(self.frame.size.width/2 + offset, self.frame.size.height/2);
         //[self. addSubview:indicator];
     }
