@@ -42,6 +42,9 @@
 }
 
 - (void)setNumberOfPages:(NSInteger)numberOfPages {
+    
+    [self.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    
     _numberOfPages = numberOfPages;
     
     for (int i = 0; i < numberOfPages; i++) {
