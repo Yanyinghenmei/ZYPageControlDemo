@@ -41,6 +41,10 @@
     
     pageControl1 = [[ZYPageControl alloc] initWithFrame:CGRectMake(0, 510, self.view.frame.size.width, 50) indicatorWidth:20 indicatorGap:20];
     [self.view addSubview:pageControl1];
+    pageControl1.pageIndicatorBorderColoer = [UIColor orangeColor];
+    pageControl1.pageIndicatorTintColor = [UIColor orangeColor];
+    pageControl1.currentPageIndicatorTintColor = [UIColor whiteColor];
+    pageControl1.currentPageIndicatorBorderColor = [UIColor orangeColor];
     pageControl1.numberOfPages = 4;
 }
 

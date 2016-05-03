@@ -28,15 +28,21 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         [self initProperty];
+        
+        // 默认的小点宽度和间距
         indicatorWidth = 5;
         indicatorGap = 5;
     }
     return self;
 }
 
+// 初始化默认数据
 - (void)initProperty {
     _pageIndicatorTintColor = [UIColor whiteColor];
+    _pageIndicatorBorderColoer = [UIColor blackColor];
+    
     _currentPageIndicatorTintColor = [UIColor blackColor];
+    _currentPageIndicatorBorderColor = [UIColor blackColor];
     _currentPage = 0;
     indicators = @[].mutableCopy;
 }
@@ -52,6 +58,7 @@
         if (i == _currentPage) {
             currentIndicator = indicator;
             indicator.backgroundColor = _currentPageIndicatorTintColor;
+            indicator.layer.borderColor = _currentPageIndicatorBorderColor.CGColor;
         }
         
         double number = (double)(numberOfPages-1.0f);
@@ -69,6 +76,7 @@
     }
 }
 
+// 定制指示器
 - (UIView *)pagePointWithWidth:(CGFloat)width {
     UIView *indicator = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width, width)];
     indicator.backgroundColor = _pageIndicatorTintColor;
@@ -76,11 +84,12 @@
     indicator.layer.cornerRadius = width/2;
     indicator.clipsToBounds = YES;
     
-    indicator.layer.borderColor = _currentPageIndicatorTintColor.CGColor;
+    indicator.layer.borderColor = _pageIndicatorBorderColoer.CGColor;
     indicator.layer.borderWidth = width/10;
     return indicator;
 }
 
+// 修改未选中背景颜色
 - (void)setPageIndicatorTintColor:(UIColor *)pageIndicatorTintColor {
     _pageIndicatorTintColor = pageIndicatorTintColor;
     for (UIView *indicator in indicators) {
@@ -88,17 +97,31 @@
     }
 }
 
+// 修改未选中边框颜色
+- (void)setPageIndicatorBorderColoer:(UIColor *)pageIndicatorBorderColoer {
+    _pageIndicatorBorderColoer = pageIndicatorBorderColoer;
+    for (UIView *indicator in indicators) {
+        indicator.layer.borderColor = pageIndicatorBorderColoer.CGColor;
+    }
+}
+
+// 设置选中背景色
 - (void)setCurrentPageIndicatorTintColor:(UIColor *)currentPageIndicatorTintColor {
     _currentPageIndicatorTintColor = currentPageIndicatorTintColor;
     if (currentIndicator) {
         currentIndicator.backgroundColor = currentPageIndicatorTintColor;
     }
-    
-    for (UIView *indicator in indicators) {
-        indicator.layer.borderColor = _currentPageIndicatorTintColor.CGColor;
+}
+
+// ...选中边框颜色
+- (void)setCurrentPageIndicatorBorderColor:(UIColor *)currentPageIndicatorBorderColor {
+    _currentPageIndicatorBorderColor = currentPageIndicatorBorderColor;
+    if (currentIndicator) {
+        currentIndicator.layer.borderColor = currentPageIndicatorBorderColor.CGColor;
     }
 }
 
+// 选中状态修改
 - (void)setCurrentPage:(NSInteger)currentPage {
     if (currentPage>=indicators.count) {
         currentPage = indicators.count-1;
@@ -106,8 +129,11 @@
     _currentPage = currentPage;
     if (currentIndicator) {
         currentIndicator.backgroundColor = _pageIndicatorTintColor;
+        currentIndicator.layer.borderColor = _pageIndicatorBorderColoer.CGColor;
+        
         currentIndicator = indicators[currentPage];
         currentIndicator.backgroundColor = _currentPageIndicatorTintColor;
+        currentIndicator.layer.borderColor = _currentPageIndicatorBorderColor.CGColor;
     }
 }
 
