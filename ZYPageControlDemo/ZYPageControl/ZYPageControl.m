@@ -64,12 +64,12 @@
         double number = (double)(numberOfPages-1.0f);
         CGFloat offset = (i - number/2) * (indicatorWidth+indicatorGap);
         
-        indicator.center = CGPointMake(self.center.x + offset, self.center.y);
-        [self.superview addSubview:indicator];
+        indicator.center = CGPointMake(self.frame.size.width/2 + offset, self.frame.size.height/2);
+        [self addSubview:indicator];
         
         [indicators addObject:indicator];
         
-        // .使用center 需要这样来写.  A.center = B.center 指的是A和B在父view的中心坐标相同
+        // .使用center A.center = B.center 指的是A和B在父view的中心坐标相同
         // .如果将A或B成为对方的父view, 那么在屏幕上, A和B的中心不重合
         //indicator.center = CGPointMake(self.frame.size.width/2 + offset, self.frame.size.height/2);
         //[self. addSubview:indicator];
