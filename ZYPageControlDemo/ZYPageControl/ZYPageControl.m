@@ -52,6 +52,7 @@
     [self.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     
     _numberOfPages = numberOfPages;
+    indicators = @[].mutableCopy;
     
     for (int i = 0; i < numberOfPages; i++) {
         UIView *indicator = [self pagePointWithWidth:indicatorWidth];
