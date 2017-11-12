@@ -39,7 +39,10 @@
     pageControl.numberOfPages = 4;
     
     
-    pageControl1 = [[ZYPageControl alloc] initWithFrame:CGRectMake(0, 510, self.view.frame.size.width, 50) indicatorWidth:20 indicatorGap:20];
+    pageControl1 = [[ZYPageControl alloc] initWithFrame:CGRectMake(0, 510, self.view.frame.size.width, 50) indicatorWidth:20 indicatorGap:20 indicatorClick:^(NSInteger index) {
+        NSLog(@"%ld", index);
+        [scrollView scrollRectToVisible:CGRectMake(scrollView.frame.size.width*index, 0, scrollView.frame.size.width, scrollView.frame.size.height) animated:true];
+    }];
     [self.view addSubview:pageControl1];
     pageControl1.pageIndicatorBorderColoer = [UIColor orangeColor];
     pageControl1.pageIndicatorTintColor = [UIColor orangeColor];

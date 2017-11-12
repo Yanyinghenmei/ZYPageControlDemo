@@ -14,12 +14,14 @@
     
     CGFloat indicatorWidth;
     CGFloat indicatorGap;
+    
+    void(^clickBlock)(NSInteger index);
 }
-
-- (instancetype)initWithFrame:(CGRect)frame indicatorWidth:(CGFloat)width indicatorGap:(CGFloat)gap {
+- (instancetype)initWithFrame:(CGRect)frame indicatorWidth:(CGFloat)width indicatorGap:(CGFloat)gap indicatorClick:(void (^)(NSInteger))block {
     if (self = [super initWithFrame:frame]) {
         indicatorWidth = width;
         indicatorGap = gap;
+        clickBlock = block;
         [self initProperty];
     }
     return self;
@@ -55,7 +57,8 @@
     indicators = @[].mutableCopy;
     
     for (int i = 0; i < numberOfPages; i++) {
-        UIView *indicator = [self pagePointWithWidth:indicatorWidth];
+        UIButton *indicator = [self pagePointWithWidth:indicatorWidth];
+        
         if (i == _currentPage) {
             currentIndicator = indicator;
             indicator.backgroundColor = _currentPageIndicatorTintColor;
@@ -77,9 +80,16 @@
     }
 }
 
+- (void)indicatorClick:(UIButton *)btn {
+    if (clickBlock) {
+        clickBlock([indicators indexOfObject:btn]);
+    }
+}
+
 // 定制指示器
-- (UIView *)pagePointWithWidth:(CGFloat)width {
-    UIView *indicator = [[UIView alloc] initWithFrame:CGRectMake(0, 0, width, width)];
+- (UIButton *)pagePointWithWidth:(CGFloat)width {
+    UIButton *indicator = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, width, width)];
+    [indicator addTarget:self action:@selector(indicatorClick:) forControlEvents:UIControlEventTouchUpInside];
     indicator.backgroundColor = _pageIndicatorTintColor;
     
     indicator.layer.cornerRadius = width/2;

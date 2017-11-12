@@ -23,6 +23,6 @@
 @property (nonatomic, strong)UIColor *currentPageIndicatorTintColor;
 @property (nonatomic, strong)UIColor *currentPageIndicatorBorderColor;
 
-- (instancetype)initWithFrame:(CGRect)frame indicatorWidth:(CGFloat)width indicatorGap:(CGFloat)gap;
+- (instancetype)initWithFrame:(CGRect)frame indicatorWidth:(CGFloat)width indicatorGap:(CGFloat)gap indicatorClick:(void(^)(NSInteger index))block;
 
 @end
